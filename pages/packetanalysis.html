@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Packet Analysis | NetWise</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .packet-dashboard {
+            padding: 50px 8%;
+        }
+
+        .packet-heading {
+            margin-bottom: 30px;
+        }
+
+        .packet-heading h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .packet-heading p {
+            color: #a5aec5;
+            font-size: 13px;
+        }
+
+        .packet-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .packet-stat {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .packet-stat p {
+            color: #a5aec5;
+            font-size: 12px;
+        }
+
+        .packet-stat h2 {
+            color: #00f5ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            margin-top: 15px;
+        }
+
+        .packet-panel {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .packet-panel h3 {
+            color: #00f5ff;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .packet-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .packet-controls select {
+            width: 200px;
+            margin: 0;
+        }
+
+        .packet-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .packet-table th,
+        .packet-table td {
+            padding: 14px;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+
+        .packet-table tbody tr {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .packet-table tbody tr:hover {
+            background: rgba(0,245,255,0.08);
+        }
+
+        .protocol {
+            color: #00f5ff;
+            font-weight: 600;
+        }
+
+        .packet-status {
+            color: #00ff9d;
+        }
+
+        .packet-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #090e20;
+            border: 1px solid rgba(0,245,255,0.12);
+            padding: 15px;
+            border-radius: 7px;
+        }
+
+        .detail-item p {
+            color: #a5aec5;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .detail-item h4 {
+            color: #00f5ff;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .packet-info {
+            color: #a5aec5;
+            font-size: 12px;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .empty-message {
+            color: #a5aec5;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media(max-width: 850px) {
+            .packet-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 550px) {
+            .packet-dashboard {
+                padding: 35px 5%;
+            }
+
+            .packet-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .packet-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            NET<span>WISE.</span>
+        </a>
+
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="trafficanalysis.html">Traffic Analysis</a>
+            <a href="performance.html">Performance</a>
+            <a href="packetanalysis.html" class="active">Packet Analysis</a>
+            <a href="topology.html">Topology</a>
+            <a href="osi.html">Network Models</a>
+            <a href="about.html">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <p class="section-tag">✦ PACKET INSPECTION CENTER</p>
+
+        <h1>NETWORK <span>PACKET ANALYSIS</span></h1>
+
+        <p>
+            Inspect network packets and understand data communication.
+        </p>
+
+    </section>
+
+
+    <!-- PACKET DASHBOARD -->
+    <section class="packet-dashboard">
+
+        <div class="packet-heading">
+
+            <h2>Packet Analyzer Dashboard</h2>
+
+            <p>
+                Explore sample packets, protocols and packet information.
+            </p>
+
+            <p style="color:#00ff9d;font-size:11px;margin-top:12px;">
+                ● DEMO PACKET DATA
+            </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+        <div class="packet-stats">
+
+            <div class="packet-stat">
+                <p>Total Packets</p>
+                <h2 id="totalPackets">08</h2>
+            </div>
+
+            <div class="packet-stat">
+                <p>TCP Packets</p>
+                <h2 id="tcpPackets">03</h2>
+            </div>
+
+            <div class="packet-stat">
+                <p>UDP Packets</p>
+                <h2 id="udpPackets">02</h2>
+            </div>
+
+            <div class="packet-stat">
+                <p>Total Data</p>
+                <h2 id="totalSize">12 KB</h2>
+            </div>
+
+        </div>
+
+
+        <!-- PACKET TABLE -->
+        <div class="packet-panel">
+
+            <h3>Captured Packet List</h3>
+
+            <div class="packet-controls">
+
+                <select id="protocolFilter" onchange="filterPackets()">
+                    <option value="ALL">All Protocols</option>
+                    <option value="TCP">TCP</option>
+                    <option value="UDP">UDP</option>
+                    <option value="HTTP">HTTP</option>
+                    <option value="DNS">DNS</option>
+                </select>
+
+                <button onclick="resetFilter()">
+                    Reset Filter ↻
+                </button>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table class="packet-table">
+
+                    <thead>
+                        <tr>
+                            <th>Packet ID</th>
+                            <th>Source IP</th>
+                            <th>Destination IP</th>
+                            <th>Protocol</th>
+                            <th>Size</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="packetTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p class="packet-info">
+                Click on any packet row to inspect its details.
+            </p>
+
+        </div>
+
+
+        <!-- PACKET DETAILS -->
+        <div class="packet-panel">
+
+            <h3>Packet Inspection</h3>
+
+            <p class="packet-info" id="selectMessage">
+                Select a packet from the table to view its information.
+            </p>
+
+            <div class="packet-details" id="packetDetails"
+                 style="display:none;">
+
+                <div class="detail-item">
+                    <p>Packet ID</p>
+                    <h4 id="detailID">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Protocol</p>
+                    <h4 id="detailProtocol">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Source IP Address</p>
+                    <h4 id="detailSource">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Destination IP Address</p>
+                    <h4 id="detailDestination">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Packet Size</p>
+                    <h4 id="detailSize">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Destination Port</p>
+                    <h4 id="detailPort">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Packet Status</p>
+                    <h4 id="detailStatus">-</h4>
+                </div>
+
+                <div class="detail-item">
+                    <p>Transmission Type</p>
+                    <h4 id="detailType">-</h4>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PACKET INFORMATION -->
+        <div class="packet-panel">
+
+            <h3>Understanding Packet Analysis</h3>
+
+            <p class="packet-info">
+
+                <strong style="color:#00f5ff;">Source IP:</strong>
+                The address of the device sending the packet.
+
+                <br><br>
+
+                <strong style="color:#00f5ff;">Destination IP:</strong>
+                The address of the device receiving the packet.
+
+                <br><br>
+
+                <strong style="color:#00f5ff;">Protocol:</strong>
+                Defines the communication rules used by the packet.
+
+                <br><br>
+
+                <strong style="color:#00f5ff;">Packet Size:</strong>
+                The amount of data contained in a packet.
+
+                <br><br>
+
+                <strong style="color:#00f5ff;">Port:</strong>
+                Identifies the application or service endpoint.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NET<span>WISE.</span>
+        </div>
+
+        <p>
+            Analyze Networks. Understand Traffic. Explore Technology.
+        </p>
+
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="trafficanalysis.html">Traffic Analysis</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 NetWise. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- PACKET ANALYSIS SCRIPT -->
+    <script>
+
+        const packets = [
+            {
+                id: "PKT001",
+                source: "192.168.1.2",
+                destination: "192.168.1.10",
+                protocol: "TCP",
+                size: 1500,
+                port: 443,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT002",
+                source: "192.168.1.5",
+                destination: "8.8.8.8",
+                protocol: "UDP",
+                size: 1200,
+                port: 53,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT003",
+                source: "192.168.1.8",
+                destination: "192.168.1.15",
+                protocol: "HTTP",
+                size: 2000,
+                port: 80,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT004",
+                source: "192.168.1.12",
+                destination: "1.1.1.1",
+                protocol: "DNS",
+                size: 800,
+                port: 53,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT005",
+                source: "192.168.1.3",
+                destination: "192.168.1.20",
+                protocol: "TCP",
+                size: 1800,
+                port: 443,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT006",
+                source: "192.168.1.7",
+                destination: "192.168.1.30",
+                protocol: "UDP",
+                size: 950,
+                port: 123,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT007",
+                source: "192.168.1.9",
+                destination: "192.168.1.40",
+                protocol: "TCP",
+                size: 1700,
+                port: 443,
+                status: "Delivered",
+                type: "Unicast"
+            },
+            {
+                id: "PKT008",
+                source: "192.168.1.4",
+                destination: "192.168.1.50",
+                protocol: "HTTP",
+                size: 2100,
+                port: 80,
+                status: "Delivered",
+                type: "Unicast"
+            }
+        ];
+
+
+        function displayPackets(data) {
+
+            const table = document.getElementById("packetTable");
+
+            table.innerHTML = "";
+
+            if (data.length === 0) {
+                table.innerHTML =
+                    '<tr><td colspan="6" class="empty-message">No packets found.</td></tr>';
+                return;
+            }
+
+            data.forEach(packet => {
+
+                const row = document.createElement("tr");
+
+                const values = [
+                    packet.id,
+                    packet.source,
+                    packet.destination,
+                    packet.protocol,
+                    packet.size + " bytes",
+                    packet.status
+                ];
+
+                values.forEach((value, index) => {
+
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+
+                    if (index === 3) {
+                        cell.className = "protocol";
+                    }
+
+                    if (index === 5) {
+                        cell.className = "packet-status";
+                    }
+
+                    row.appendChild(cell);
+
+                });
+
+                row.addEventListener("click", function() {
+                    showPacketDetails(packet);
+                });
+
+                table.appendChild(row);
+
+            });
+
+        }
+
+
+        function showPacketDetails(packet) {
+
+            document.getElementById("packetDetails").style.display =
+                "grid";
+
+            document.getElementById("selectMessage").textContent =
+                "Selected packet: " + packet.id;
+
+            document.getElementById("detailID").textContent =
+                packet.id;
+
+            document.getElementById("detailProtocol").textContent =
+                packet.protocol;
+
+            document.getElementById("detailSource").textContent =
+                packet.source;
+
+            document.getElementById("detailDestination").textContent =
+                packet.destination;
+
+            document.getElementById("detailSize").textContent =
+                packet.size + " bytes";
+
+            document.getElementById("detailPort").textContent =
+                packet.port;
+
+            document.getElementById("detailStatus").textContent =
+                packet.status;
+
+            document.getElementById("detailType").textContent =
+                packet.type;
+
+        }
+
+
+        function filterPackets() {
+
+            const selected =
+                document.getElementById("protocolFilter").value;
+
+            if (selected === "ALL") {
+                displayPackets(packets);
+            } else {
+                const filtered = packets.filter(packet =>
+                    packet.protocol === selected
+                );
+
+                displayPackets(filtered);
+            }
+
+        }
+
+
+        function resetFilter() {
+
+            document.getElementById("protocolFilter").value = "ALL";
+
+            displayPackets(packets);
+
+            document.getElementById("packetDetails").style.display =
+                "none";
+
+            document.getElementById("selectMessage").textContent =
+                "Select a packet from the table to view its information.";
+
+        }
+
+
+        // Calculate packet statistics
+        document.getElementById("totalPackets").textContent =
+            packets.length.toString().padStart(2, "0");
+
+        document.getElementById("tcpPackets").textContent =
+            packets.filter(p => p.protocol === "TCP").length
+                .toString().padStart(2, "0");
+
+        document.getElementById("udpPackets").textContent =
+            packets.filter(p => p.protocol === "UDP").length
+                .toString().padStart(2, "0");
+
+        const totalBytes = packets.reduce(
+            (sum, packet) => sum + packet.size, 0
+        );
+
+        document.getElementById("totalSize").textContent =
+            (totalBytes / 1024).toFixed(1) + " KB";
+
+
+        // Display packets when page loads
+        displayPackets(packets);
+
+    </script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/packets.js"></script>
+</body>
+</html>

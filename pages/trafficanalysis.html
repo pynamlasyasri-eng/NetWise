@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Traffic Analysis | NetWise</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .traffic-dashboard {
+            padding: 50px 8%;
+        }
+
+        .dashboard-heading {
+            margin-bottom: 35px;
+        }
+
+        .dashboard-heading h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-heading p {
+            color: #a5aec5;
+            font-size: 13px;
+        }
+
+        .status {
+            color: #00ff9d;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        .traffic-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            padding: 25px;
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+        }
+
+        .stat-card p {
+            color: #a5aec5;
+            font-size: 12px;
+        }
+
+        .stat-card h2 {
+            color: #00f5ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            margin: 15px 0 5px;
+        }
+
+        .stat-card span {
+            color: #00ff9d;
+            font-size: 11px;
+        }
+
+        .traffic-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .traffic-panel {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .traffic-panel h3 {
+            color: #00f5ff;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .traffic-chart {
+            height: 230px;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            gap: 12px;
+            padding: 15px 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 55px,
+                rgba(255,255,255,0.06) 56px
+            );
+        }
+
+        .bar-group {
+            height: 100%;
+            flex: 1;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .bar {
+            width: 65%;
+            min-height: 5px;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(
+                to top,
+                #a855f7,
+                #00f5ff
+            );
+            box-shadow: 0 0 12px rgba(0,245,255,0.3);
+            transition: height 0.5s;
+        }
+
+        .bar-group small {
+            color: #a5aec5;
+            font-size: 10px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            color: #a5aec5;
+            font-size: 11px;
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            background: #00f5ff;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .traffic-type {
+            margin: 22px 0;
+        }
+
+        .traffic-type div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #252b40;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(
+                to right,
+                #a855f7,
+                #00f5ff
+            );
+        }
+
+        .traffic-table {
+            width: 100%;
+        }
+
+        .traffic-table th,
+        .traffic-table td {
+            white-space: nowrap;
+        }
+
+        .refresh-btn {
+            margin-top: 15px;
+        }
+
+        @media(max-width: 900px) {
+            .traffic-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .traffic-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 500px) {
+            .traffic-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .traffic-dashboard {
+                padding: 35px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            NET<span>WISE.</span>
+        </a>
+
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="trafficanalysis.html" class="active">Traffic Analysis</a>
+            <a href="performance.html">Performance</a>
+            <a href="packetanalysis.html">Packet Analysis</a>
+            <a href="topology.html">Topology</a>
+            <a href="osi.html">Network Models</a>
+            <a href="about.html">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <p class="section-tag">✦ NETWORK INTELLIGENCE</p>
+
+        <h1>NETWORK <span>TRAFFIC ANALYSIS</span></h1>
+
+        <p>
+            Monitor data flow, bandwidth usage and network traffic statistics.
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="traffic-dashboard">
+
+        <div class="dashboard-heading">
+
+            <h2>Traffic Dashboard</h2>
+
+            <p>Network traffic overview and data transmission statistics.</p>
+
+            <div class="status">
+                ● DEMO MONITORING ACTIVE
+            </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+        <div class="traffic-stats">
+
+            <div class="stat-card">
+                <p>Incoming Traffic</p>
+                <h2 id="incoming">125.6</h2>
+                <span>Mbps ↓ Download</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Outgoing Traffic</p>
+                <h2 id="outgoing">84.2</h2>
+                <span>Mbps ↑ Upload</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Data Transfer</p>
+                <h2 id="totalData">2.4</h2>
+                <span>GB Transferred</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Active Connections</p>
+                <h2 id="connections">24</h2>
+                <span>Connected Sessions</span>
+            </div>
+
+        </div>
+
+
+        <div class="traffic-layout">
+
+            <!-- TRAFFIC GRAPH -->
+            <div>
+
+                <div class="traffic-panel">
+
+                    <h3>Network Bandwidth Usage</h3>
+
+                    <p style="color:#a5aec5;font-size:11px;">
+                        Traffic volume over recent monitoring intervals
+                    </p>
+
+                    <div class="traffic-chart" id="trafficChart">
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:45%"></div>
+                            <small>1</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:65%"></div>
+                            <small>2</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:40%"></div>
+                            <small>3</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:80%"></div>
+                            <small>4</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:55%"></div>
+                            <small>5</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:90%"></div>
+                            <small>6</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:60%"></div>
+                            <small>7</small>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height:75%"></div>
+                            <small>8</small>
+                        </div>
+
+                    </div>
+
+                    <div class="chart-legend">
+                        <span>
+                            <i class="legend-dot"></i> Traffic Usage
+                        </span>
+                    </div>
+
+                    <button class="refresh-btn" onclick="updateTraffic()">
+                        Refresh Traffic ↻
+                    </button>
+
+                </div>
+
+
+                <!-- TRAFFIC TABLE -->
+                <div class="traffic-panel">
+
+                    <h3>Recent Traffic Activity</h3>
+
+                    <table class="traffic-table">
+
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Destination</th>
+                                <th>Protocol</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="trafficTable">
+
+                            <tr>
+                                <td>192.168.1.2</td>
+                                <td>192.168.1.10</td>
+                                <td>TCP</td>
+                                <td>2.5 MB</td>
+                            </tr>
+
+                            <tr>
+                                <td>192.168.1.5</td>
+                                <td>8.8.8.8</td>
+                                <td>UDP</td>
+                                <td>1.2 MB</td>
+                            </tr>
+
+                            <tr>
+                                <td>192.168.1.8</td>
+                                <td>192.168.1.15</td>
+                                <td>HTTP</td>
+                                <td>3.8 MB</td>
+                            </tr>
+
+                            <tr>
+                                <td>192.168.1.12</td>
+                                <td>1.1.1.1</td>
+                                <td>DNS</td>
+                                <td>0.5 MB</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRAFFIC DISTRIBUTION -->
+            <div>
+
+                <div class="traffic-panel">
+
+                    <h3>Protocol Distribution</h3>
+
+                    <div class="traffic-type">
+                        <div>
+                            <span>TCP</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress">
+                            <span style="width:45%"></span>
+                        </div>
+                    </div>
+
+                    <div class="traffic-type">
+                        <div>
+                            <span>UDP</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="progress">
+                            <span style="width:25%"></span>
+                        </div>
+                    </div>
+
+                    <div class="traffic-type">
+                        <div>
+                            <span>HTTP / HTTPS</span>
+                            <span>20%</span>
+                        </div>
+                        <div class="progress">
+                            <span style="width:20%"></span>
+                        </div>
+                    </div>
+
+                    <div class="traffic-type">
+                        <div>
+                            <span>DNS</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="progress">
+                            <span style="width:10%"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="traffic-panel">
+
+                    <h3>Traffic Information</h3>
+
+                    <p style="color:#a5aec5;font-size:12px;line-height:2;">
+                        <strong style="color:#00f5ff;">
+                            Incoming Traffic:
+                        </strong>
+                        Data received by a network device.
+                        <br><br>
+
+                        <strong style="color:#00f5ff;">
+                            Outgoing Traffic:
+                        </strong>
+                        Data sent from a network device.
+                        <br><br>
+
+                        <strong style="color:#00f5ff;">
+                            Bandwidth:
+                        </strong>
+                        Maximum data transfer capacity of a network.
+                        <br><br>
+
+                        <strong style="color:#00f5ff;">
+                            Protocol:
+                        </strong>
+                        Rules used for communication between devices.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NET<span>WISE.</span>
+        </div>
+
+        <p>
+            Analyze Networks. Understand Traffic. Explore Technology.
+        </p>
+
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="topology.html">Topology</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 NetWise. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- TRAFFIC DEMO SCRIPT -->
+    <script>
+
+        function updateTraffic() {
+
+            const incoming =
+                (100 + Math.random() * 100).toFixed(1);
+
+            const outgoing =
+                (50 + Math.random() * 80).toFixed(1);
+
+            const totalData =
+                (2 + Math.random() * 3).toFixed(2);
+
+            const connections =
+                Math.floor(15 + Math.random() * 35);
+
+            document.getElementById("incoming").textContent =
+                incoming;
+
+            document.getElementById("outgoing").textContent =
+                outgoing;
+
+            document.getElementById("totalData").textContent =
+                totalData;
+
+            document.getElementById("connections").textContent =
+                connections;
+
+
+            const bars = document.querySelectorAll(".bar");
+
+            bars.forEach(bar => {
+
+                const height = Math.floor(
+                    20 + Math.random() * 75
+                );
+
+                bar.style.height = height + "%";
+
+            });
+
+        }
+
+    </script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/traffic.js"></script>
+</body>
+</html>

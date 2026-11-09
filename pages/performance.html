@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Network Performance | NetWise</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .performance-dashboard {
+            padding: 50px 8%;
+        }
+
+        .dashboard-title {
+            margin-bottom: 35px;
+        }
+
+        .dashboard-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-title p {
+            color: #a5aec5;
+            font-size: 13px;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .performance-card {
+            padding: 25px;
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .performance-card:hover {
+            border-color: #00f5ff;
+            box-shadow: 0 0 20px rgba(0,245,255,0.12);
+            transform: translateY(-5px);
+        }
+
+        .performance-card p {
+            color: #a5aec5;
+            font-size: 12px;
+        }
+
+        .performance-card h2 {
+            color: #00f5ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 27px;
+            margin: 15px 0 8px;
+        }
+
+        .performance-card span {
+            color: #00ff9d;
+            font-size: 11px;
+        }
+
+        .performance-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .performance-panel {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .performance-panel h3 {
+            color: #00f5ff;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .chart {
+            height: 220px;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent 50px,
+                rgba(255,255,255,0.05) 51px
+            );
+        }
+
+        .chart-bar {
+            width: 9%;
+            min-height: 5px;
+            background: linear-gradient(
+                to top,
+                #a855f7,
+                #00f5ff
+            );
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 0 12px rgba(0,245,255,0.3);
+            transition: height 0.5s;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-around;
+            color: #a5aec5;
+            font-size: 10px;
+            margin-top: 12px;
+        }
+
+        .quality-box {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .quality-circle {
+            width: 140px;
+            height: 140px;
+            border: 7px solid #00f5ff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 25px rgba(0,245,255,0.25);
+        }
+
+        .quality-circle h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f5ff;
+            font-size: 25px;
+        }
+
+        .quality-box p {
+            color: #a5aec5;
+            font-size: 12px;
+        }
+
+        .test-btn {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 12px;
+        }
+
+        .metric-row span:first-child {
+            color: #a5aec5;
+        }
+
+        .metric-row span:last-child {
+            color: #00f5ff;
+        }
+
+        .test-message {
+            color: #00ff9d;
+            font-size: 12px;
+            margin-top: 15px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        @media(max-width: 900px) {
+            .performance-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .performance-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 500px) {
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .performance-dashboard {
+                padding: 35px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            NET<span>WISE.</span>
+        </a>
+
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="trafficanalysis.html">Traffic Analysis</a>
+            <a href="performance.html" class="active">Performance</a>
+            <a href="packetanalysis.html">Packet Analysis</a>
+            <a href="topology.html">Topology</a>
+            <a href="osi.html">Network Models</a>
+            <a href="about.html">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <p class="section-tag">✦ NETWORK PERFORMANCE CENTER</p>
+
+        <h1>NETWORK <span>PERFORMANCE</span></h1>
+
+        <p>
+            Analyze latency, packet loss, response time and connection quality.
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="performance-dashboard">
+
+        <div class="dashboard-title">
+
+            <h2>Performance Dashboard</h2>
+
+            <p>
+                Network performance overview with simulated test results.
+            </p>
+
+        </div>
+
+
+        <!-- PERFORMANCE CARDS -->
+        <div class="performance-grid">
+
+            <div class="performance-card">
+                <p>Network Latency</p>
+                <h2 id="latency">28 ms</h2>
+                <span>Response delay</span>
+            </div>
+
+            <div class="performance-card">
+                <p>Packet Loss</p>
+                <h2 id="packetLoss">0.5%</h2>
+                <span>Packets not received</span>
+            </div>
+
+            <div class="performance-card">
+                <p>Response Time</p>
+                <h2 id="response">45 ms</h2>
+                <span>Server response</span>
+            </div>
+
+            <div class="performance-card">
+                <p>Jitter</p>
+                <h2 id="jitter">4 ms</h2>
+                <span>Latency variation</span>
+            </div>
+
+        </div>
+
+
+        <div class="performance-layout">
+
+            <!-- GRAPH -->
+            <div>
+
+                <div class="performance-panel">
+
+                    <h3>Latency Monitoring Graph</h3>
+
+                    <p style="color:#a5aec5;font-size:11px;">
+                        Illustrative latency values across recent intervals
+                    </p>
+
+                    <div class="chart" id="latencyChart">
+
+                        <div class="chart-bar" style="height:35%"></div>
+                        <div class="chart-bar" style="height:55%"></div>
+                        <div class="chart-bar" style="height:40%"></div>
+                        <div class="chart-bar" style="height:75%"></div>
+                        <div class="chart-bar" style="height:45%"></div>
+                        <div class="chart-bar" style="height:65%"></div>
+                        <div class="chart-bar" style="height:30%"></div>
+                        <div class="chart-bar" style="height:50%"></div>
+
+                    </div>
+
+                    <div class="chart-labels">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                        <span>6</span>
+                        <span>7</span>
+                        <span>8</span>
+                    </div>
+
+                </div>
+
+
+                <!-- METRICS -->
+                <div class="performance-panel">
+
+                    <h3>Network Metrics</h3>
+
+                    <div class="metric-row">
+                        <span>Connection Type</span>
+                        <span>Demo Network</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>Latency Status</span>
+                        <span id="latencyStatus">Good</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>Packet Delivery</span>
+                        <span id="delivery">99.5%</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>Network Quality</span>
+                        <span id="networkQuality">Excellent</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUALITY -->
+            <div>
+
+                <div class="performance-panel">
+
+                    <h3>Connection Quality</h3>
+
+                    <div class="quality-box">
+
+                        <div class="quality-circle">
+                            <h2 id="qualityScore">95%</h2>
+                        </div>
+
+                        <p id="qualityText">
+                            Excellent Connection
+                        </p>
+
+                    </div>
+
+                    <button class="test-btn" onclick="runTest()">
+                        Run Performance Test ↻
+                    </button>
+
+                    <p class="test-message" id="testMessage"></p>
+
+                </div>
+
+
+                <div class="performance-panel">
+
+                    <h3>Performance Guide</h3>
+
+                    <div class="metric-row">
+                        <span>Low Latency</span>
+                        <span>Below 50 ms</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>Moderate Latency</span>
+                        <span>50–100 ms</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>High Latency</span>
+                        <span>Above 100 ms</span>
+                    </div>
+
+                    <div class="metric-row">
+                        <span>Low Packet Loss</span>
+                        <span>Below 1%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NET<span>WISE.</span>
+        </div>
+
+        <p>
+            Analyze Networks. Understand Traffic. Explore Technology.
+        </p>
+
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="trafficanalysis.html">Traffic Analysis</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 NetWise. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- PERFORMANCE TEST SCRIPT -->
+    <script>
+
+        function runTest() {
+
+            const message =
+                document.getElementById("testMessage");
+
+            message.textContent = "Running demo performance test...";
+
+            setTimeout(function() {
+
+                const latency =
+                    Math.floor(15 + Math.random() * 100);
+
+                const loss =
+                    (Math.random() * 3).toFixed(1);
+
+                const response =
+                    latency + Math.floor(Math.random() * 20);
+
+                const jitter =
+                    Math.floor(Math.random() * 15);
+
+                let quality;
+
+                if (latency < 50 && loss < 1) {
+                    quality = 95;
+                } else if (latency < 100 && loss < 2) {
+                    quality = 80;
+                } else {
+                    quality = 60;
+                }
+
+                document.getElementById("latency").textContent =
+                    latency + " ms";
+
+                document.getElementById("packetLoss").textContent =
+                    loss + "%";
+
+                document.getElementById("response").textContent =
+                    response + " ms";
+
+                document.getElementById("jitter").textContent =
+                    jitter + " ms";
+
+                document.getElementById("qualityScore").textContent =
+                    quality + "%";
+
+                document.getElementById("delivery").textContent =
+                    (100 - Number(loss)).toFixed(1) + "%";
+
+                let status = "Good";
+                let qualityText = "Good Connection";
+
+                if (latency >= 100) {
+                    status = "High";
+                }
+
+                if (quality >= 90) {
+                    qualityText = "Excellent Connection";
+                } else if (quality >= 75) {
+                    qualityText = "Good Connection";
+                } else {
+                    qualityText = "Needs Improvement";
+                }
+
+                document.getElementById("latencyStatus").textContent =
+                    status;
+
+                document.getElementById("networkQuality").textContent =
+                    qualityText.replace(" Connection", "");
+
+                document.getElementById("qualityText").textContent =
+                    qualityText;
+
+                const bars =
+                    document.querySelectorAll(".chart-bar");
+
+                bars.forEach(bar => {
+                    bar.style.height =
+                        Math.floor(20 + Math.random() * 75) + "%";
+                });
+
+                message.textContent =
+                    "✓ Demo test completed successfully!";
+
+            }, 1000);
+
+        }
+
+    </script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/performance.js"></script>
+</body>
+</html>

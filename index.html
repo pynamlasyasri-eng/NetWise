@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NetWise | Network Analysis Portal</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* HERO SECTION LAYOUT */
+
+        .hero {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            align-items: center;
+            gap: 35px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            position: relative;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        /* NETWORK DASHBOARD IMAGE */
+
+        .network-dashboard-image {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 245, 255, 0.4);
+
+            box-shadow:
+                0 0 20px rgba(0, 245, 255, 0.2),
+                0 0 35px rgba(168, 85, 247, 0.15);
+
+            transition: transform 0.4s ease;
+        }
+
+        .network-dashboard-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* TABLET RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .hero-visual {
+                justify-content: center;
+            }
+
+            .network-dashboard-image {
+                max-width: 450px;
+            }
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            .network-dashboard-image {
+                max-width: 350px;
+            }
+
+            .hero {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            NET<span>WISE.</span>
+        </a>
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/trafficanalysis.html">Traffic Analysis</a>
+            <a href="pages/performance.html">Performance</a>
+            <a href="pages/packetanalysis.html">Packet Analysis</a>
+            <a href="pages/topology.html">Topology</a>
+            <a href="pages/osi.html">Network Models</a>
+            <a href="pages/about.html">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-tag">
+                ✦ ADVANCED NETWORK ANALYSIS PLATFORM
+            </p>
+
+            <h1>
+                UNDERSTAND.<br>
+                ANALYZE.<br>
+                <span>MONITOR NETWORKS.</span>
+            </h1>
+
+            <p class="hero-description">
+                Explore network traffic, analyze packet information,
+                monitor network performance and visualize network
+                connections through one powerful platform.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#dashboard" class="btn-primary">
+                    Explore Dashboard →
+                </a>
+
+                <a href="pages/about.html" class="btn-secondary">
+                    About NetWise
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div>
+                    <h2>01</h2>
+                    <p>Traffic Analysis</p>
+                </div>
+
+                <div>
+                    <h2>02</h2>
+                    <p>Packet Analysis</p>
+                </div>
+
+                <div>
+                    <h2>03</h2>
+                    <p>Network Monitoring</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NETWORK DASHBOARD IMAGE -->
+        <div class="hero-visual">
+
+            <img
+                src="images/Futuristic%20Neon%20Network%20Status%20Dashboard.png"
+                alt="Futuristic Neon Network Status Dashboard"
+                class="network-dashboard-image"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD SECTION -->
+    <section class="explore-section" id="dashboard">
+
+        <div class="section-heading">
+
+            <p class="section-tag">
+                ✦ NETWORK INTELLIGENCE CENTER
+            </p>
+
+            <h2>
+                Explore <span>Our Tools</span>
+            </h2>
+
+            <p>
+                Analyze network activities, understand data
+                transmission and explore network technologies.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <!-- TRAFFIC ANALYSIS -->
+            <div class="feature-card">
+
+                <div class="card-icon">📊</div>
+
+                <h3>Network Traffic Analysis</h3>
+
+                <p>
+                    Analyze incoming and outgoing network traffic,
+                    bandwidth usage and data transfer statistics.
+                </p>
+
+                <a href="pages/trafficanalysis.html">
+                    Analyze Traffic ↗
+                </a>
+
+            </div>
+
+
+            <!-- PERFORMANCE -->
+            <div class="feature-card">
+
+                <div class="card-icon">⚡</div>
+
+                <h3>Network Performance</h3>
+
+                <p>
+                    Examine network latency, packet loss,
+                    response time and overall performance.
+                </p>
+
+                <a href="pages/performance.html">
+                    Check Performance ↗
+                </a>
+
+            </div>
+
+
+            <!-- PACKET ANALYSIS -->
+            <div class="feature-card">
+
+                <div class="card-icon">📦</div>
+
+                <h3>Packet Analysis</h3>
+
+                <p>
+                    Explore packet information, source addresses,
+                    destination addresses and network protocols.
+                </p>
+
+                <a href="pages/packetanalysis.html">
+                    Analyze Packets ↗
+                </a>
+
+            </div>
+
+
+            <!-- NETWORK MONITORING -->
+            <div class="feature-card">
+
+                <div class="card-icon">🖥️</div>
+
+                <h3>Network Monitoring</h3>
+
+                <p>
+                    View network device status, connection details
+                    and network health information.
+                </p>
+
+                <a href="pages/monitoring.html">
+                    Monitor Network ↗
+                </a>
+
+            </div>
+
+
+            <!-- TOPOLOGY -->
+            <div class="feature-card">
+
+                <div class="card-icon">🔗</div>
+
+                <h3>Network Topology</h3>
+
+                <p>
+                    Visualize Star, Bus, Ring, Mesh, Tree and
+                    Hybrid network architectures.
+                </p>
+
+                <a href="pages/topology.html">
+                    View Topologies ↗
+                </a>
+
+            </div>
+
+
+            <!-- NETWORK MODELS -->
+            <div class="feature-card">
+
+                <div class="card-icon">🌐</div>
+
+                <h3>Network Models</h3>
+
+                <p>
+                    Explore the OSI and TCP/IP models and
+                    understand how network communication works.
+                </p>
+
+                <a href="pages/osi.html">
+                    Explore Models ↗
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+
+        <p class="section-tag">
+            ✦ DISCOVER THE POWER OF NETWORKS
+        </p>
+
+        <h2>
+            SEE WHAT'S HAPPENING<br>
+            <span>INSIDE YOUR NETWORK.</span>
+        </h2>
+
+        <p>
+            From traffic analysis to packet inspection,
+            explore the technology behind digital communication.
+        </p>
+
+        <a href="pages/trafficanalysis.html" class="btn-primary">
+            Start Exploring →
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NET<span>WISE.</span>
+        </div>
+
+        <p>
+            Analyze Networks. Understand Traffic. Explore Technology.
+        </p>
+
+        <div class="footer-links">
+
+            <a href="index.html">Home</a>
+            <a href="pages/topology.html">Topology</a>
+            <a href="pages/about.html">About</a>
+
+        </div>
+
+        <p class="copyright">
+            © 2026 NetWise. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>

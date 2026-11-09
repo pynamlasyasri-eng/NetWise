@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Models | NetWise</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .model-section {
+            margin-top: 35px;
+        }
+
+        .model-section h2 {
+            margin-bottom: 12px;
+        }
+
+        .model-intro {
+            color: #a5aec5;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .osi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .layer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .layer {
+            padding: 15px;
+            border: 1px solid rgba(0,245,255,0.25);
+            border-radius: 10px;
+            background: #101426;
+            color: #eafaff;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .layer:hover,
+        .layer.active {
+            border-color: #00f5ff;
+            background: rgba(0,245,255,0.1);
+            box-shadow: 0 0 15px rgba(0,245,255,0.15);
+        }
+
+        .layer-number {
+            color: #00f5ff;
+            font-family: 'Orbitron', sans-serif;
+            margin-right: 10px;
+        }
+
+        .layer-detail {
+            background: #101426;
+            border: 1px solid rgba(168,85,247,0.35);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 220px;
+        }
+
+        .layer-detail h3 {
+            color: #00f5ff;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .layer-detail p {
+            color: #c5cee2;
+            line-height: 1.8;
+        }
+
+        .layer-detail .example {
+            color: #d7aaff;
+            margin-top: 18px;
+        }
+
+        .tcp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tcp-card {
+            background: #101426;
+            border: 1px solid rgba(168,85,247,0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .tcp-card h3 {
+            color: #00f5ff;
+            margin-bottom: 10px;
+        }
+
+        .tcp-card p {
+            color: #a5aec5;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            min-width: 500px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .comparison-table th {
+            color: #00f5ff;
+        }
+
+        .comparison-table td {
+            color: #c5cee2;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        .model-note {
+            color: #a5aec5;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">NET<span>WISE</span></div>
+
+    <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="trafficanalysis.html">Traffic Analysis</a>
+        <a href="performance.html">Performance</a>
+        <a href="packetanalysis.html">Packet Analysis</a>
+        <a href="monitoring.html">Monitoring</a>
+        <a href="topology.html">Topology</a>
+        <a href="osi.html" class="active">Network Models</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<main class="page-container">
+
+    <section class="page-header">
+        <p class="section-tag">NETWORK FUNDAMENTALS</p>
+        <h1>OSI & <span>TCP/IP Models</span></h1>
+        <p>Understand how data travels between devices through network layers.</p>
+    </section>
+
+    <!-- OSI MODEL -->
+
+    <section class="model-section">
+        <h2>OSI Reference Model</h2>
+
+        <p class="model-intro">
+            The OSI model divides network communication into seven layers.
+            Each layer performs a specific function to help data travel
+            from one device to another.
+            Click on any layer to learn more.
+        </p>
+
+        <div class="osi-container">
+
+            <div class="layer-list">
+
+                <button class="layer active" onclick="showLayer(7)">
+                    <span class="layer-number">07</span> Application Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(6)">
+                    <span class="layer-number">06</span> Presentation Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(5)">
+                    <span class="layer-number">05</span> Session Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(4)">
+                    <span class="layer-number">04</span> Transport Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(3)">
+                    <span class="layer-number">03</span> Network Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(2)">
+                    <span class="layer-number">02</span> Data Link Layer
+                </button>
+
+                <button class="layer" onclick="showLayer(1)">
+                    <span class="layer-number">01</span> Physical Layer
+                </button>
+
+            </div>
+
+            <div class="layer-detail" id="layerDetail">
+                <h3>7. Application Layer</h3>
+
+                <p>
+                    The Application Layer provides network services
+                    directly to user applications. It allows applications
+                    to communicate over a network.
+                </p>
+
+                <p class="example">
+                    Examples: HTTP, HTTPS, FTP, DNS and SMTP.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TCP/IP MODEL -->
+
+    <section class="model-section">
+        <h2>TCP/IP Model</h2>
+
+        <p class="model-intro">
+            The TCP/IP model is used for communication across the Internet.
+            It organizes networking functions into four layers.
+        </p>
+
+        <div class="tcp-grid">
+
+            <div class="tcp-card">
+                <h3>4. Application</h3>
+                <p>
+                    Provides services for applications and user communication.
+                    Examples: HTTP, DNS, FTP and SMTP.
+                </p>
+            </div>
+
+            <div class="tcp-card">
+                <h3>3. Transport</h3>
+                <p>
+                    Handles end-to-end data delivery.
+                    Examples: TCP and UDP.
+                </p>
+            </div>
+
+            <div class="tcp-card">
+                <h3>2. Internet</h3>
+                <p>
+                    Handles logical addressing and routing of packets.
+                    Example: IP.
+                </p>
+            </div>
+
+            <div class="tcp-card">
+                <h3>1. Network Access</h3>
+                <p>
+                    Handles communication over the physical network.
+                    Examples: Ethernet and Wi-Fi.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- COMPARISON -->
+
+    <section class="model-section">
+        <h2>OSI vs TCP/IP Comparison</h2>
+
+        <div class="content-card table-scroll">
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>OSI Model</th>
+                        <th>TCP/IP Model</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>7 Layers</td>
+                        <td>4 Layers</td>
+                    </tr>
+
+                    <tr>
+                        <td>Reference model</td>
+                        <td>Practical protocol suite</td>
+                    </tr>
+
+                    <tr>
+                        <td>Developed by ISO</td>
+                        <td>Developed through DARPA research</td>
+                    </tr>
+
+                    <tr>
+                        <td>Session and Presentation are separate</td>
+                        <td>Included in Application layer</td>
+                    </tr>
+
+                    <tr>
+                        <td>Data Link and Physical are separate</td>
+                        <td>Combined as Network Access layer</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <p class="model-note">
+            These models help explain the different responsibilities
+            involved in network communication.
+        </p>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 NetWise | Network Analysis & Monitoring Portal</p>
+    <p>Understand Networks. Analyze Traffic. Monitor Performance.</p>
+</footer>
+
+<script src="../js/main.js"></script>
+
+<script>
+    const layerInformation = {
+        7: {
+            name: "Application Layer",
+            description:
+                "Provides network services directly to user applications. It allows software such as browsers and email clients to communicate over a network.",
+            example: "Examples: HTTP, HTTPS, FTP, DNS and SMTP."
+        },
+
+        6: {
+            name: "Presentation Layer",
+            description:
+                "Translates data into a suitable format. It also handles data encryption, decryption and compression.",
+            example: "Examples: Data encoding, encryption and JPEG formatting."
+        },
+
+        5: {
+            name: "Session Layer",
+            description:
+                "Establishes, manages and terminates communication sessions between applications.",
+            example: "Example: Managing a communication session between two computers."
+        },
+
+        4: {
+            name: "Transport Layer",
+            description:
+                "Provides end-to-end communication, segmentation, flow control and error recovery.",
+            example: "Examples: TCP and UDP."
+        },
+
+        3: {
+            name: "Network Layer",
+            description:
+                "Handles logical addressing and routing. It helps packets travel between different networks.",
+            example: "Examples: IP and routers."
+        },
+
+        2: {
+            name: "Data Link Layer",
+            description:
+                "Transfers data frames between directly connected devices. It uses MAC addresses for local delivery.",
+            example: "Examples: Ethernet, switches and MAC addresses."
+        },
+
+        1: {
+            name: "Physical Layer",
+            description:
+                "Transmits raw bits through physical transmission media such as cables, radio signals and fiber optics.",
+            example: "Examples: Network cables, hubs and fiber optics."
+        }
+    };
+
+    function showLayer(number) {
+        const layer = layerInformation[number];
+
+        document.getElementById("layerDetail").innerHTML = `
+            <h3>${number}. ${layer.name}</h3>
+            <p>${layer.description}</p>
+            <p class="example">${layer.example}</p>
+        `;
+
+        const buttons = document.querySelectorAll(".layer");
+
+        buttons.forEach(button => {
+            button.classList.remove("active");
+        });
+
+        buttons[7 - number].classList.add("active");
+    }
+</script>
+
+</body>
+</html>

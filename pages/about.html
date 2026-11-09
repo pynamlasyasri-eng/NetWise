@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NetWise</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .about-intro {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.25);
+            border-radius: 16px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .about-intro h2 {
+            color: #00f5ff;
+            margin-bottom: 18px;
+        }
+
+        .about-intro p {
+            color: #a5aec5;
+            line-height: 1.9;
+            margin-bottom: 12px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .about-card {
+            background: #101426;
+            border: 1px solid rgba(168,85,247,0.3);
+            border-radius: 14px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: #00f5ff;
+            box-shadow: 0 0 18px rgba(0,245,255,0.12);
+        }
+
+        .about-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .about-card h3 {
+            color: #00f5ff;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: #a5aec5;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            padding: 12px 20px;
+            background: rgba(0,245,255,0.08);
+            border: 1px solid rgba(0,245,255,0.3);
+            border-radius: 8px;
+            color: #00f5ff;
+            font-weight: bold;
+        }
+
+        .about-quote {
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 35px;
+            background: linear-gradient(
+                120deg,
+                rgba(0,245,255,0.08),
+                rgba(168,85,247,0.12)
+            );
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 15px;
+        }
+
+        .about-quote h2 {
+            color: #00f5ff;
+            margin-bottom: 12px;
+        }
+
+        .about-quote p {
+            color: #c5cee2;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">NET<span>WISE</span></div>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="trafficanalysis.html">Traffic Analysis</a>
+        <a href="performance.html">Performance</a>
+        <a href="packetanalysis.html">Packet Analysis</a>
+        <a href="monitoring.html">Monitoring</a>
+        <a href="topology.html">Topology</a>
+        <a href="osi.html">Network Models</a>
+        <a href="tcpip.html">TCP/IP Model</a>
+        <a href="about.html" class="active">About</a>
+    </nav>
+</header>
+
+<main class="page-container">
+
+    <section class="page-header">
+        <p class="section-tag">ABOUT OUR PROJECT</p>
+        <h1>About <span>NetWise</span></h1>
+        <p>Making computer networking easier to understand and explore.</p>
+    </section>
+
+    <!-- PROJECT INTRODUCTION -->
+
+    <section class="about-intro">
+        <h2>What is NetWise?</h2>
+
+        <p>
+            NetWise is a web-based Network Analysis and Monitoring Portal
+            designed to demonstrate important concepts of computer networking.
+        </p>
+
+        <p>
+            The platform brings together network traffic analysis,
+            performance analysis, packet analysis, network monitoring,
+            network topology and networking models in one place.
+        </p>
+
+        <p>
+            It provides a simple and interactive interface that helps
+            users explore how networks operate and understand the
+            different components involved in communication.
+        </p>
+    </section>
+
+    <!-- OBJECTIVES -->
+
+    <section class="model-section">
+        <h2>Project Objectives</h2>
+
+        <div class="about-grid">
+
+            <div class="about-card">
+                <div class="about-icon">🎯</div>
+                <h3>Understand Networks</h3>
+                <p>
+                    Learn the basic concepts and working principles
+                    of computer networks.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">📊</div>
+                <h3>Analyze Traffic</h3>
+                <p>
+                    Explore network traffic patterns, protocols
+                    and data transmission.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">⚡</div>
+                <h3>Study Performance</h3>
+                <p>
+                    Understand network latency, packet loss,
+                    response time and jitter.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">🔍</div>
+                <h3>Explore Packets</h3>
+                <p>
+                    Learn about packet information, source,
+                    destination and protocols.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="model-section">
+        <h2>What Does NetWise Offer?</h2>
+
+        <div class="about-grid">
+
+            <div class="about-card">
+                <div class="about-icon">📈</div>
+                <h3>Traffic Analysis</h3>
+                <p>
+                    Explore incoming and outgoing traffic,
+                    data usage and protocol distribution.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">🚀</div>
+                <h3>Performance Analysis</h3>
+                <p>
+                    View illustrative network performance
+                    metrics and understand their importance.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">📦</div>
+                <h3>Packet Analysis</h3>
+                <p>
+                    Explore sample packets and understand
+                    their network information.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">🖥️</div>
+                <h3>Network Monitoring</h3>
+                <p>
+                    View sample device information,
+                    network health and connection status.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">🔗</div>
+                <h3>Network Topology</h3>
+                <p>
+                    Understand how computers, routers,
+                    switches and servers are connected.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">🌐</div>
+                <h3>Network Models</h3>
+                <p>
+                    Learn about the OSI and TCP/IP models
+                    and their different layers.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TECHNOLOGIES -->
+
+    <section class="model-section">
+        <h2>Technologies Used</h2>
+
+        <div class="content-card">
+            <p>
+                NetWise is developed using basic web technologies
+                to create an interactive and responsive website.
+            </p>
+
+            <div class="tech-list">
+                <div class="tech-item">HTML5</div>
+                <div class="tech-item">CSS3</div>
+                <div class="tech-item">JavaScript</div>
+                <div class="tech-item">Visual Studio Code</div>
+                <div class="tech-item">Live Server</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT SCOPE -->
+
+    <section class="model-section">
+        <h2>Project Scope</h2>
+
+        <div class="about-intro">
+            <p>
+                NetWise is currently a demonstration and learning-oriented
+                project. Its dashboards use simulated sample data to explain
+                networking concepts and display illustrative results.
+            </p>
+
+            <p>
+                Actual live network monitoring, packet capture and
+                real-time device detection require additional backend
+                services and appropriate network permissions.
+            </p>
+        </div>
+    </section>
+
+    <section class="about-quote">
+        <h2>Understand. Analyze. Monitor.</h2>
+        <p>NetWise — Explore the world of computer networking.</p>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 NetWise | Network Analysis & Monitoring Portal</p>
+    <p>Understand Networks. Analyze Traffic. Monitor Performance.</p>
+</footer>
+
+<script src="../js/main.js"></script>
+
+</body>
+</html>

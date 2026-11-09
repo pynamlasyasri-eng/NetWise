@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Topology | NetWise</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .topology-card {
+            background: #101426;
+            border: 1px solid rgba(0,245,255,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .topology-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .topology-description {
+            color: #a5aec5;
+            margin-bottom: 25px;
+        }
+
+        .diagram {
+            min-width: 650px;
+            padding: 25px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .node {
+            min-width: 135px;
+            padding: 15px 20px;
+            text-align: center;
+            background: #171e35;
+            border: 1px solid #00f5ff;
+            border-radius: 12px;
+            color: #00f5ff;
+            box-shadow: 0 0 15px rgba(0,245,255,0.15);
+            font-weight: bold;
+        }
+
+        .node span {
+            display: block;
+            color: #a5aec5;
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .connection {
+            width: 2px;
+            height: 35px;
+            background: linear-gradient(#00f5ff, #a855f7);
+            box-shadow: 0 0 10px #00f5ff;
+        }
+
+        .branches {
+            width: 70%;
+            height: 35px;
+            border-top: 2px solid #a855f7;
+            border-left: 2px solid #a855f7;
+            border-right: 2px solid #a855f7;
+            position: relative;
+        }
+
+        .branches::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            height: 35px;
+            border-left: 2px solid #a855f7;
+        }
+
+        .devices {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .device-node {
+            min-width: 110px;
+            padding: 15px 10px;
+            text-align: center;
+            border: 1px solid #a855f7;
+            border-radius: 10px;
+            background: rgba(168,85,247,0.1);
+            color: #d7aaff;
+            box-shadow: 0 0 12px rgba(168,85,247,0.15);
+        }
+
+        .device-node span {
+            display: block;
+            color: #a5aec5;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .topology-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .info-box {
+            background: #101426;
+            border: 1px solid rgba(168,85,247,0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .info-box h3 {
+            color: #00f5ff;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #a5aec5;
+            line-height: 1.7;
+        }
+
+        .topology-note {
+            color: #a5aec5;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        @media(max-width: 700px) {
+            .diagram {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">NET<span>WISE</span></div>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="trafficanalysis.html">Traffic Analysis</a>
+        <a href="performance.html">Performance</a>
+        <a href="packetanalysis.html">Packet Analysis</a>
+        <a href="monitoring.html">Monitoring</a>
+        <a href="topology.html" class="active">Topology</a>
+        <a href="osi.html">Network Models</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<main class="page-container">
+
+    <section class="page-header">
+        <p class="section-tag">NETWORK STRUCTURE</p>
+        <h1>Network <span>Topology</span></h1>
+        <p>Explore how computers and network devices are connected.</p>
+    </section>
+
+    <section class="topology-card">
+        <h2>Star Network Topology</h2>
+
+        <p class="topology-description">
+            In star topology, all devices connect to a central switch.
+            The switch connects them to the router and network.
+        </p>
+
+        <div style="overflow-x:auto;">
+
+            <div class="diagram">
+
+                <div class="node">
+                    🌐 Internet
+                    <span>External Network</span>
+                </div>
+
+                <div class="connection"></div>
+
+                <div class="node">
+                    📡 Router
+                    <span>192.168.1.1</span>
+                </div>
+
+                <div class="connection"></div>
+
+                <div class="node">
+                    🔀 Network Switch
+                    <span>Central Connection Point</span>
+                </div>
+
+                <div class="connection"></div>
+
+                <div class="branches"></div>
+
+                <div class="devices">
+
+                    <div class="device-node">
+                        💻 PC 1
+                        <span>192.168.1.2</span>
+                    </div>
+
+                    <div class="device-node">
+                        💻 PC 2
+                        <span>192.168.1.3</span>
+                    </div>
+
+                    <div class="device-node">
+                        🖨️ Printer
+                        <span>192.168.1.4</span>
+                    </div>
+
+                    <div class="device-node">
+                        🖥️ Server
+                        <span>192.168.1.5</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="topology-note">
+            This is an illustrative network diagram using sample IP addresses.
+        </p>
+    </section>
+
+    <section class="topology-info">
+
+        <div class="info-box">
+            <h3>⭐ Star Topology</h3>
+            <p>
+                Every device connects to a central hub or switch.
+                It is easy to manage and troubleshoot.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🔗 Bus Topology</h3>
+            <p>
+                All devices share a single main communication cable.
+                It is simple but can have a single point of failure.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🔄 Ring Topology</h3>
+            <p>
+                Devices connect in a circular arrangement.
+                Data travels from one device to another around the ring.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🌐 Mesh Topology</h3>
+            <p>
+                Devices have multiple connections with other devices.
+                It provides alternative paths for communication.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 NetWise | Network Analysis & Monitoring Portal</p>
+    <p>Understand Networks. Analyze Traffic. Monitor Performance.</p>
+</footer>
+
+<script src="../js/main.js"></script>
+
+</body>
+</html>
